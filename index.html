@@ -1,17 +1,37 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="utf-8">
-<title>my GitHub Pages</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <title>my GitHub Pages</title>
+    <script>
+        function updateAddr() {
+            document.getElementById("myForm").action = "http://" + document.getElementById("addr").value + ":9001";
+        }
+    </script>
 </head>
+
 <body>
-    <h1>try!</h1>
-    <p>make an attempt to do something...</p>
-    <p>test something new or different to see if it is suitable, effective, or pleasant...</p>
-    <p>attempt to open a door...</p>
-    <p>put on an item of clothing to see if it fits or suits you...</p>
-    <p>make severe demands on...</p>
-    <p>put someone on trial...</p>
-    <p>investigate and decide a case in a formal trial...</p>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Hi, OLD-MA</h1>
+            <p>总是你</p>
+        </div>
+        <form action="" target="_blank" id="myForm">
+            <div class="form-group">
+                <label for="addr">地址:</label>
+                <input type="text" class="form-control" id="addr" name="ip" placeholder="Enter addr" onchange="updateAddr()">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
 </body>
+
 </html>
