@@ -22,6 +22,7 @@
 
                 $scope.addRecord = addRecord;
                 $scope.removeRecord = removeRecord;
+                $scope.resetRecord = resetRecord;
 
                 activate();
 
@@ -32,9 +33,10 @@
                 }
 
                 function addRecord() {
-                    $scope.newRecord.createTime = new Date().toLocaleString();
+                    $scope.newRecord.createTime = new Date().toLocaleDateString();
                     $scope.records.unshift(angular.copy($scope.newRecord));
                     $cookies.putObject('records', $scope.records)
+                    resetRecord();
                 }
 
                 function removeRecord(index) {
@@ -42,6 +44,10 @@
                         $scope.records.splice(index, 1);
                         $cookies.putObject('records', $scope.records)
                     }
+                }
+
+                function resetRecord(){
+                    $scope.newRecord = {};
                 }
             }]);
     </script>
@@ -67,8 +73,11 @@
                     </label>
                 </div>
             </div>
-            <button type="button" class="btn btn-primary" ng-click="addRecord()"
-                ng-disabled="recordForm.$invalid">添加</button>
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary" ng-click="addRecord()"
+                    ng-disabled="recordForm.$invalid">添加</button>
+                <button type="button" class="btn btn-secondary" ng-click="resetRecord()">重置</button>
+            </div>
         </form>
         <br>
         <table class="table table-striped" ng-show="records.length > 0">
@@ -86,7 +95,7 @@
                             class="badge badge-secondary">内</span></td>
                     <td>{{record.createTime}}</td>
                     <td>
-                        <div class="btn-group">
+                        <div class="btn-group btn-group-sm">
                             <button type="button" class="btn btn-danger" ng-click="removeRecord($index)">删除</button>
                         </div>
                     </td>
