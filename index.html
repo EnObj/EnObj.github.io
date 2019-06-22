@@ -71,7 +71,7 @@
                 ng-disabled="recordForm.$invalid">添加</button>
         </form>
         <br>
-        <table class="table table-striped">
+        <table class="table table-striped" ng-show="records.length > 0">
             <thead>
                 <tr>
                     <th>地址</th>
