@@ -10,27 +10,89 @@
     <script src="/js/jquery.min.js"></script>
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
-    <title>my GitHub Pages</title>
+    <script src="/js/angular.min.js"></script>
+    <script src="/js/angular-cookies.min.js"></script>
+    <title>the gate of OLD-MA</title>
     <script>
-        function updateAddr() {
-            document.getElementById("myForm").action = "http://" + document.getElementById("addr").value + ":9001";
-        }
+        angular.module("app", ['ngCookies']).controller('myController', ['$scope', '$cookies',
+            function ($scope, $cookies) {
+
+                $scope.records = [];
+                $scope.newRecord = {};
+
+                $scope.addRecord = addRecord;
+                $scope.removeRecord = removeRecord;
+
+                activate();
+
+                //////////////////////////
+
+                function activate() {
+                    $scope.records = $cookies.getObject('records') || [];
+                }
+
+                function addRecord() {
+                    $scope.newRecord.createTime = new Date().toLocaleString();
+                    $scope.records.unshift(angular.copy($scope.newRecord));
+                    $cookies.putObject('records', $scope.records)
+                }
+
+                function removeRecord(index) {
+                    if (confirm("确认删除？")) {
+                        $scope.records.splice(index, 1);
+                        $cookies.putObject('records', $scope.records)
+                    }
+                }
+            }]);
     </script>
 </head>
 
-<body>
-    <div class="container">
+<body ng-app="app">
+    <div class="container" ng-controller="myController">
+        <br>
         <div class="jumbotron">
-            <h1>Hi, OLD-MA</h1>
-            <p>总是你</p>
+            <h1>Knock Knock</h1>
+            <p>Hi, OLD-MA</p>
         </div>
-        <form action="" target="_blank" id="myForm">
+        <form name="recordForm">
             <div class="form-group">
-                <label for="addr">地址:</label>
-                <input type="text" class="form-control" id="addr" name="ip" placeholder="Enter addr" onchange="updateAddr()">
+                <label for="addr">添加新地址:</label>
+                <input type="text" class="form-control" id="addr" ng-model="newRecord.addr" placeholder="请输入IP地址"
+                    required>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="form-group">
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" ng-model="newRecord.inside"> 内网通道
+                    </label>
+                </div>
+            </div>
+            <button type="button" class="btn btn-primary" ng-click="addRecord()"
+                ng-disabled="recordForm.$invalid">添加</button>
         </form>
+        <br>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>地址</th>
+                    <th>添加时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="record in records">
+                    <td ng-if="!record.inside"><a ng-href="http://{{record.addr}}:9001" target="_blank">{{record.addr}}</a></td>
+                    <td ng-if="record.inside"><a ng-href="http://{{record.addr}}:8080" target="_blank">{{record.addr}}</a>&nbsp;<span
+                            class="badge badge-secondary">内</span></td>
+                    <td>{{record.createTime}}</td>
+                    <td>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-danger" ng-click="removeRecord($index)">删除</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </body>
 
