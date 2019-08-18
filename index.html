@@ -14,12 +14,7 @@
     <script src="/js/angular-cookies.min.js"></script>
     <title>the gate of OLD-MA</title>
     <script>
-        angular.module("app", ['ngCookies']).config(['$cookiesProvider',
-            function ($cookiesProvider) {
-
-                $cookiesProvider.expires = new Date('9012-12-31');
-                
-            }]).controller('myController', ['$scope', '$cookies',
+        angular.module("app", ['ngCookies']).controller('myController', ['$scope', '$cookies',
                 function ($scope, $cookies) {
 
                     $scope.records = [];
@@ -40,15 +35,19 @@
                     function addRecord() {
                         $scope.newRecord.createTime = new Date().toLocaleDateString();
                         $scope.records.unshift(angular.copy($scope.newRecord));
-                        $cookies.putObject('records', $scope.records)
+                        saveRecords($scope.records);
                         resetRecord();
                     }
 
                     function removeRecord(index) {
                         if (confirm("确认删除？")) {
                             $scope.records.splice(index, 1);
-                            $cookies.putObject('records', $scope.records)
+                            saveRecords($scope.records);
                         }
+                    }
+
+                    function saveRecords(records){
+                        $cookies.putObject('records', records, {expires: new Date('9012-12-31')});
                     }
 
                     function resetRecord() {
