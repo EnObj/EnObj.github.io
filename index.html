@@ -14,42 +14,47 @@
     <script src="/js/angular-cookies.min.js"></script>
     <title>the gate of OLD-MA</title>
     <script>
-        angular.module("app", ['ngCookies']).controller('myController', ['$scope', '$cookies',
-            function ($scope, $cookies) {
+        angular.module("app", ['ngCookies']).config(['$cookiesProvider',
+            function ($cookiesProvider) {
 
-                $scope.records = [];
-                $scope.newRecord = {};
+                $cookiesProvider.expires = new Date('9012-12-31');
+                
+            }]).controller('myController', ['$scope', '$cookies',
+                function ($scope, $cookies) {
 
-                $scope.addRecord = addRecord;
-                $scope.removeRecord = removeRecord;
-                $scope.resetRecord = resetRecord;
-
-                activate();
-
-                //////////////////////////
-
-                function activate() {
-                    $scope.records = $cookies.getObject('records') || [];
-                }
-
-                function addRecord() {
-                    $scope.newRecord.createTime = new Date().toLocaleDateString();
-                    $scope.records.unshift(angular.copy($scope.newRecord));
-                    $cookies.putObject('records', $scope.records)
-                    resetRecord();
-                }
-
-                function removeRecord(index) {
-                    if (confirm("确认删除？")) {
-                        $scope.records.splice(index, 1);
-                        $cookies.putObject('records', $scope.records)
-                    }
-                }
-
-                function resetRecord(){
+                    $scope.records = [];
                     $scope.newRecord = {};
-                }
-            }]);
+
+                    $scope.addRecord = addRecord;
+                    $scope.removeRecord = removeRecord;
+                    $scope.resetRecord = resetRecord;
+
+                    activate();
+
+                    //////////////////////////
+
+                    function activate() {
+                        $scope.records = $cookies.getObject('records') || [];
+                    }
+
+                    function addRecord() {
+                        $scope.newRecord.createTime = new Date().toLocaleDateString();
+                        $scope.records.unshift(angular.copy($scope.newRecord));
+                        $cookies.putObject('records', $scope.records)
+                        resetRecord();
+                    }
+
+                    function removeRecord(index) {
+                        if (confirm("确认删除？")) {
+                            $scope.records.splice(index, 1);
+                            $cookies.putObject('records', $scope.records)
+                        }
+                    }
+
+                    function resetRecord() {
+                        $scope.newRecord = {};
+                    }
+                }]);
     </script>
 </head>
 
@@ -90,9 +95,10 @@
             </thead>
             <tbody>
                 <tr ng-repeat="record in records">
-                    <td ng-if="!record.inside"><a ng-href="http://{{record.addr}}:9001" target="_blank">{{record.addr}}</a></td>
-                    <td ng-if="record.inside"><a ng-href="http://{{record.addr}}:8080" target="_blank">{{record.addr}}</a>&nbsp;<span
-                            class="badge badge-secondary">内</span></td>
+                    <td ng-if="!record.inside"><a ng-href="http://{{record.addr}}:9001"
+                            target="_blank">{{record.addr}}</a></td>
+                    <td ng-if="record.inside"><a ng-href="http://{{record.addr}}:8080"
+                            target="_blank">{{record.addr}}</a>&nbsp;<span class="badge badge-secondary">内</span></td>
                     <td>{{record.createTime}}</td>
                     <td>
                         <div class="btn-group btn-group-sm">
