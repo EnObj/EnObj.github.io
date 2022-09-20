@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>firework</title>
+</head>
+
+<body>
+    <div class='main'>
+        <div class='huatong'>
+            <div class='hua'>
+                <div class='huaban huaban4'>
+                </div>
+                <div class='huaban huaban3'>
+                </div>
+                <div class='huaban huaban2'>
+                </div>
+                <div class='huaban huaban1'>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        .main {
+            position: relative;
+            height: 300px;
+            background: #eee;
+        }
+
+        .huatong {
+            height: 60px;
+            width: 50px;
+            background: #dd6633;
+            position: absolute;
+            bottom: 0;
+            left: calc(50% - 25px)
+        }
+
+        .hua {
+            height: 10px;
+            width: 10px;
+            background: red;
+            position: absolute;
+            left: 20px;
+            animation: fire 2s ease-out forwards;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0px;
+        }
+
+        .huaban {
+            background: green;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            left: 0;
+            top: 0;
+        }
+
+        .huaban1 {
+            animation: zha1 2s ease-out 2s forwards infinite;
+        }
+
+        .huaban2 {
+            animation: zha2 2s ease-out 2s forwards infinite;
+        }
+
+        .huaban3 {
+            animation: zha3 2s ease-out 2s forwards infinite;
+        }
+
+        .huaban4 {
+            animation: zha4 2s ease-out 2s forwards infinite;
+        }
+
+        @keyframes fire {
+            from {
+                top: 0;
+            }
+
+            to {
+                top: -150px;
+                background: #eee;
+            }
+        }
+
+        @keyframes zha1 {
+            from {}
+
+            to {
+                left: 50px;
+                top: 50px;
+            }
+        }
+
+        @keyframes zha2 {
+            from {}
+
+            to {
+                left: -50px;
+                top: 50px;
+            }
+        }
+
+        @keyframes zha3 {
+            from {}
+
+            to {
+                left: 50px;
+                top: -50px;
+            }
+        }
+
+        @keyframes zha4 {
+            from {}
+
+            to {
+                left: -50px;
+                top: -50px;
+            }
+        }
+    </style>
+</body>
+
+</html>
