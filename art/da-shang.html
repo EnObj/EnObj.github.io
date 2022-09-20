@@ -179,18 +179,19 @@
             <p>感谢您的支持，我会继续努力的!</p>
         </div>
         <div class="shang_payimg">
-            <img src="https://6465-dev-9g0suwuw61afb9f3-1252108641.tcb.qcloud.la/zan-shang-zhifubao.png?sign=5b8d8916ff329d56636326ce12af21fc&t=1663662432" alt="扫码支持" title="扫一扫" />
+            <img src="https://6465-dev-9g0suwuw61afb9f3-1252108641.tcb.qcloud.la/zan-shang-zhifubao.png" alt="扫码支持"
+                title="扫一扫" />
         </div>
         <div class="pay_explain">扫码打赏，你说多少就多少</div>
         <div class="shang_payselect">
-            <div class="pay_item checked" data-id="alipay">
+            <div class="pay_item checked" data-id="zan-shang-zhifubao">
                 <span class="radiobox"></span>
-                <span class="pay_logo"><img src="https://6465-dev-9g0suwuw61afb9f3-1252108641.tcb.qcloud.la/zan-shang-zhifubao.png?sign=5b8d8916ff329d56636326ce12af21fc&t=1663662432"
+                <span class="pay_logo"><img src="https://static.runoob.com/images/dashang/alipay.jpg"
                         alt="支付宝" /></span>
             </div>
-            <div class="pay_item" data-id="weipay">
+            <div class="pay_item" data-id="zan-shang-weixin">
                 <span class="radiobox"></span>
-                <span class="pay_logo"><img src="https://6465-dev-9g0suwuw61afb9f3-1252108641.tcb.qcloud.la/zan-shang-weixin.png?sign=eaa8419b2d4edd35da2751bcdef6dcda&t=1663662291" alt="微信" /></span>
+                <span class="pay_logo"><img src="https://static.runoob.com/images/dashang/wechat.jpg" alt="微信" /></span>
             </div>
         </div>
         <div class="shang_info">
@@ -204,7 +205,7 @@
             $(".pay_item").click(function () {
                 $(this).addClass('checked').siblings('.pay_item').removeClass('checked');
                 var dataid = $(this).attr('data-id');
-                $(".shang_payimg img").attr("src", "https://static.runoob.com/images/dashang/" + dataid + "img.png");
+                $(".shang_payimg img").attr("src", "https://6465-dev-9g0suwuw61afb9f3-1252108641.tcb.qcloud.la/" + dataid + ".png");
                 $("#shang_pay_txt").text(dataid == "alipay" ? "支付宝" : "微信");
             });
         });
