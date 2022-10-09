@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>do you like me</title>
+    <style>
+        .head1 {
+            font-family: 'Lobster', 'Indie Flower';
+        }
+
+        .btn-danger {
+            position: relative;
+            top: 0px;
+            /* change position here*/
+            /*animation: buttonMove 5s infinite;*/
+
+        }
+
+        .btn-primary {
+            position: relative;
+            top: 0px;
+        }
+
+        img {
+            width: 200px;
+            height: 400px;
+        }
+
+        @keyframes buttonMove {
+            0% {
+                top: 0px;
+            }
+
+            /*75%  {top: 100px;} */
+            50% {
+                top: 500px;
+            }
+
+            100% {
+                top: 0px;
+            }
+
+        }
+
+        @keyframes buttonMove2 {
+            0% {
+                top: 400px;
+                left: -200px;
+            }
+
+            25% {
+                top: 400px;
+                left: 200px;
+            }
+
+            50% {
+                top: 400px;
+                left: 200px;
+            }
+
+            75% {
+                top: 600px;
+                left: 100px;
+            }
+
+            100% {
+                top: 600px;
+                left: -200px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.2.4/jquery.min.js"></script>
+    <h1 class="text-center head1">你喜欢我吗?</h1>
+    <div class="container-fluid">
+        <!-- row of buttons -->
+        <div class="row">
+            <div class="col-xs-6 text-right"> <button class="btn btn-primary">是的！</button></div>
+            <div class="col-xs-6"> <button class="btn btn-danger" id="no-btn">喜欢个锤子！</button></div>
+
+        </div>
+
+    </div>
+    <script>
+        var count = 0;
+        $(document).ready(function () {
+            $('.btn-danger').mouseenter(function () {
+                $('.btn-danger').css('animation', 'buttonMove 0.5s infinite');
+                count++;
+                console.log(count);
+                if (count >= 3) {
+                    $('.btn-danger').css('animation', '');
+                    $('.btn-danger').css('top', '500px');
+                    $('.btn-danger').css('left', '-300px');
+                    $('.btn-danger').addClass('animated tada');
+                }
+                if (count >= 4) {
+                    $('.btn-danger').css('animation', 'buttonMove2  0.5s infinite ');
+                }
+                if (count >= 6) {
+                    $('.btn-danger').css('animation', '');
+                    $('.btn-danger').addClass('animated shake');
+                    $('#no-btn').css('top', '200px');
+                    $('#no-btn').css('left', '-400px');
+                }
+                if (count >= 7) {
+                    $('#no-btn').removeClass('btn-danger').addClass('btn-primary');
+                    $('#no-btn').text('是的！');
+                }
+
+            });
+            // code continues here
+            //btn-clicked
+            $('.btn-primary').click(function () {
+                $('.head1').text("哈哈，我也喜欢你！！！");
+                $('.head1').addClass("animated wobble");
+            });
+
+        });
+    </script>
+</body>
+
+</html>

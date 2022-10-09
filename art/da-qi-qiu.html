@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        .qiQiu {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background-color: #ffe5e5;
+            border-radius: 200px 200px 100px 200px;
+            transform: rotate(45deg);
+            box-shadow: -10px -10px 80px 20px #ff9999 inset;
+        }
+
+        .qiQiu::after {
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            content: "";
+            /*表示伪元素中要插入的内容*/
+            border: 10px solid transparent;
+            border-right-color: red;
+            transform: rotate(45deg);
+            border-radius: 16px;
+
+
+        }
+
+        #scortDaQiQiu {
+            font-family: Arial;
+            font-size: 20px;
+            color: blue;
+        }
+    </style>
+</head>
+
+<body style="overflow:hidden;">
+    <button type="button" onclick="javscript:location.reload();">重新开始游戏</button>
+    <button type="button" onclick="clearQiqiu()">停止游戏</button>
+    <input type="number" id="speedInput">
+    <button type="button" onclick="createSpeed()">确定</button>（默认速度为10）
+    <div id="scortDaQiQiu"> 当前分数</div>
+    <script>
+        var scort = 0;
+        var random = Math.random;
+        var qiQiuWidth = window.innerWidth;
+        var qiQiuHeight = window.innerHeight;
+        var speedUp = 10;
+        var myBody = document.body || document.documentElement;
+        function createQiQiu(number) {/*创建气球，创建一个div然后设置好DIV的位置，位置使用随机数，根据窗口大小设置随机创建位置边距大小*/
+            for (var i = 0; i <= number; i++) {
+                var qiQiuDiv = document.createElement("div");
+                var qiQiuZuoBiaoX = Math.max(Math.random() * qiQiuWidth - 200, 20);/*设置距离是要将气球本身宽度考虑进去，所以减去气球宽度，当x坐标为负值是，考虑重新规划坐标*/
+                qiQiuDiv.className = "qiQiu";
+                qiQiuDiv.style.left = qiQiuZuoBiaoX + 'px';
+                qiQiuDiv.style.top = qiQiuHeight + 'px';/*从底部开始创建气球*/
+                myBody.appendChild(qiQiuDiv);//将创建的气球。作为一个子节点加入到div中
+            }
+        }
+        function moveUp() {
+        }
+        createQiQiu(2);
+        var qiQiusCreate = setInterval(function () { createQiQiu(2); }, 2000);
+        var daQiQiu = setInterval(function () {
+            var qiQius = document.querySelectorAll(".qiQiu");
+            for (var i = 0; i < qiQius.length; i++) {
+                var len = qiQius[i].offsetTop - speedUp;
+                qiQius[i].style.top = len + 'px';//气球上升
+                qiQius[i].onclick = function () {
+                    this.parentNode.removeChild(this);//当气球被点击到。则删除这个节点
+                    scort++;
+                    scortDaQiQiu.innerHTML = "当前分数：" + scort;//记录点击次数
+                }
+                if (len < -20) {
+                    alert("有气球飞出窗口，游戏结束");
+                    clearQiqiu();
+                    break;
+                }
+
+            }
+
+        }, 100);
+        function clearQiqiu() {///清除窗口中所有气球，并停止动画
+            var qiQius = document.querySelectorAll(".qiQiu");
+            for (var i = 0; i < qiQius.length; i++) {
+                qiQius[i].parentNode.removeChild(qiQius[i]);
+            }
+            clearInterval(qiQiusCreate);
+            clearInterval(daQiQiu);
+            scort = 0;
+        }
+        function createSpeed() {
+            speedUp = document.getElementById("speedInput").value;
+        }
+    </script>
+</body>
+
+</html>
