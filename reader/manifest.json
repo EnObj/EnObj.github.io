@@ -1,0 +1,35 @@
+{
+  "name": "场宁阅读器",
+  "short_name": "阅读器",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "场宁阅读器 - 去繁就简，回归2G复古wap风。",
+  "icons": [
+    {
+      "src": "imgs/homescreen48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "imgs/homescreen72.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "imgs/homescreen96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "imgs/homescreen120.png",
+      "sizes": "120x120",
+      "type": "image/png"
+    },
+    {
+      "src": "imgs/homescreen240.png",
+      "sizes": "240x240",
+      "type": "image/png"
+    }
+  ]
+}
