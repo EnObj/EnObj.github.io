@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>正方格</title>
+    <style>
+      .days {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+        grid-gap: 10px;
+      }
+      .day-container {
+        padding: 50%;
+        position: relative;
+      }
+      .day {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-radius: 10px;
+        padding: 5px;
+        font-size: 13px;
+        overflow: hidden;
+        display: flex;
+        background: #eee;
+      }
+      .day-content {
+        margin: auto;
+        word-break: break-all;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="days">
+        <div class="day-container" v-for="day in days" :key="day">
+          <div class="day">
+            <div class="day-content">
+              <span>{{ day }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script>
+        new Vue({
+          el: "#app",
+          data: {
+            days: [],
+          },
+          created() {
+            for (let i = 0; i < 1000; i++) {
+              this.days.push(i);
+            }
+          },
+        });
+    </script>
+  </body>
+</html>
