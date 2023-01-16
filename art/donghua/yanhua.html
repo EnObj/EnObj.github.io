@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>烟花</title>
+</head>
+
+<body>
+    <div>
+        <canvas id="enobj-canvas" width="300" height="300"></canvas>
+    </div>
+    <script>
+        function init () {
+            window.requestAnimationFrame(draw);
+        }
+        function draw () {
+            var ctx = document.getElementById('enobj-canvas').getContext('2d');
+            ctx.clearRect(0, 0, 300, 300); // clear canvas
+
+            // 画布
+            ctx.fillStyle = "#000";
+            ctx.fillRect(0, 0, 300, 300)
+
+            // 花筒
+            ctx.fillStyle = "red";
+            ctx.fillRect(125, 250, 50, 50)
+
+            ctx.save();
+
+            // 一轮消耗1分钟
+            var time = new Date();
+            var round = (time.getMilliseconds() % 1000) / 1000
+
+            if (round < 0.6) {
+                round /= 0.6
+                // 花蛋
+                ctx.translate(0, -200 * round) // 喷200高
+                ctx.fillStyle = "white";
+                ctx.fillRect(140, 250, 20, 20)
+            } else {
+                round = (round - 0.6) / 0.6
+                // 花瓣
+                var huabanCount = 8;
+                ctx.fillStyle = "yellow";
+                ctx.translate(0, -200)
+                for (var i = 0; i < huabanCount; i++) {
+                    var huabanX = Math.cos(2 * Math.PI * (i / huabanCount)) * 50 * round
+                    var huabanY = Math.sin(2 * Math.PI * (i / huabanCount)) * 50 * round
+                    ctx.fillRect(145 + huabanX, 250 + huabanY, 10, 10)
+                }
+            }
+
+            ctx.restore();
+
+            window.requestAnimationFrame(draw);
+        }
+        init()
+    </script>
+</body>
+
+</html>
