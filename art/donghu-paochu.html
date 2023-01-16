@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动画-抛出</title>
+</head>
+
+<body>
+    <div>
+        <canvas id="enobj-canvas" width="300" height="300"></canvas>
+    </div>
+    <script>
+        var pic = new Image();
+        function init () {
+            pic.src = 'https://6465-dev-9g0suwuw61afb9f3-1252108641.tcb.qcloud.la/favicon.ico?sign=93268258d631bffa041fd75c371b13bb&t=1673839186'
+            window.requestAnimationFrame(draw);
+        }
+        function draw () {
+            var ctx = document.getElementById('enobj-canvas').getContext('2d');
+            ctx.clearRect(0, 0, 300, 300); // clear canvas
+
+            ctx.save();
+
+            ctx.fillStyle = "#eeeeee";
+            ctx.fillRect(0, 0, 300, 300)
+
+            var time = new Date();
+            var round = (time.getMilliseconds() % 1000) / 1000
+            // 最大时停顿20%时间
+            if (round > 0.2) {
+                round = (round - 0.2) / 0.8
+                // 旋转(画布)
+                ctx.rotate(0.4 * Math.PI * round);
+                ctx.drawImage(pic, 200, 50, pic.width * (1 - round), pic.height * (1 - round));
+            } else {
+                ctx.drawImage(pic, 200, 50);
+            }
+
+            ctx.restore();
+
+            window.requestAnimationFrame(draw);
+        }
+        init()
+    </script>
+</body>
+
+</html>
