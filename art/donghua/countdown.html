@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.5.0/lib/p5.js"></script>
+    <title>倒计时</title>
+</head>
+
+<body>
+    <script>
+        let bg;
+
+        let myFont;
+        function preload () {
+            myFont = loadFont('https://6465-dev-9g0suwuw61afb9f3-1252108641.tcb.qcloud.la/test/pabellona-c-triplex.ttf?sign=b8f3b3fc2618cda8f40258da3c8da396&t=1676880809');
+            // myFont = loadFont('https://6465-dev-9g0suwuw61afb9f3-1252108641.tcb.qcloud.la/test/zerpixl.ttf?sign=69337c27a21769c98b4f4f76c122e65c&t=1676882566');
+            // myFont = loadFont('https://6465-dev-9g0suwuw61afb9f3-1252108641.tcb.qcloud.la/test/easter-joy.ttf?sign=96fd7de04c18161029f40039612e4ca3&t=1676882680');
+            // myFont = loadFont('https://6465-dev-9g0suwuw61afb9f3-1252108641.tcb.qcloud.la/test/shamrock.ttf?sign=3339e976fa4367485029e563a2c4504e&t=1676882812');
+        }
+
+        function setup () {
+            // 制作一个 720 像素宽 400 像素高的画布。
+            c = createCanvas(720, 400);
+        }
+        
+        function draw () {
+            clear();
+            background('rgba(100%,0%,100%,0)');
+            fill('#F2921D');
+            textSize(60);
+            textFont(myFont);
+            // background(bg, 225)
+            // 将背景设置为透明。
+            const remainingTime = calculateRemainingTime();
+
+            if (remainingTime.remainingTime > 1000) {
+                const timeText =
+                    "" +
+                    getTrueNumber(remainingTime.hours) +
+                    " " +
+                    getTrueNumber(remainingTime.mins) +
+                    " " +
+                    getTrueNumber(remainingTime.secs);
+                text(timeText, 200, 200)
+            }
+        }
+
+        function calculateRemainingTime () {
+            const comingYear = new Date().getFullYear() + 1;
+            const comingDate = new Date(`Jan 1, ${comingYear} 00:00:00`);
+
+            const now = new Date();
+            const remainingTime = comingDate.getTime() - now.getTime();
+            const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+            const hours = Math.floor(
+                (remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+            );
+            const mins = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+            const secs = Math.floor((remainingTime % (1000 * 60)) / 1000);
+
+            return { hours: days * 24 + hours, mins, secs, remainingTime };
+        }
+
+        function getTrueNumber (num) {
+            return num < 10 ? "0" + num : num;
+        }
+    </script>
+</body>
+
+</html>
