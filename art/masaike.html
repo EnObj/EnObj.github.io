@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>masaike</title>
+</head>
+
+<body>
+  <div>
+    <div>
+      <label for="btn-choose-img">Choose images to upload (PNG, JPG)</label>
+      <input type="file" id="btn-choose-img" name="btn-choose-img" accept="image/png, image/jpeg" />
+    </div>
+    <div style="margin-bottom: 20px;">
+      <button id="btn-export">导出</button>
+    </div>
+    <canvas id="huabu" width="300" height="300"></canvas>
+  </div>
+  <script>
+    const canvas = document.getElementById('huabu')
+    var ctx = canvas.getContext('2d')
+    // 展示原图片
+    ctx.fillStyle = 'gray'
+    ctx.fillRect(0, 0, 300, 300)
+    ctx.fillStyle = '#bbb'
+    ctx.fillRect(10, 10, 100, 100)
+
+    ctx.beginPath()
+    ctx.arc(200, 200, 50, 0, 2 * Math.PI)
+    ctx.fill()
+
+    // 添加动作侦听
+    canvas.addEventListener('mousedown', begin)
+    canvas.addEventListener('mousemove', draw)
+    canvas.addEventListener('mouseup', end)
+    canvas.addEventListener('mouseout', end)
+
+    // 鼠标按下标志
+    let drawing = false
+
+    function begin(e) {
+      drawing = true
+    }
+
+    // 添加马赛克
+    function draw(e) {
+      if (drawing) {
+        console.log(e)
+        ctx.fillStyle = 'rgba(130,130,130,1)'
+        ctx.beginPath()
+        ctx.arc(e.pageX - canvas.offsetLeft, e.pageY - canvas.offsetTop, 5, 0, 2 * Math.PI)
+        ctx.fill()
+      }
+    }
+
+    function end(e) {
+      drawing = false
+    }
+
+    // 选择图片
+    document.getElementById('btn-choose-img').addEventListener('change', chooseImage)
+    document.getElementById('btn-choose-img').style.opacity = 0
+    function chooseImage(e) {
+      const file = e.target.files[0]
+
+      const image = document.createElement('img')
+      image.src = URL.createObjectURL(file)
+      image.onload = function () {
+        console.log(image)
+        canvas.width = image.width
+        canvas.height = image.height
+        ctx.drawImage(image, 0, 0)
+      }
+    }
+
+    // 导出
+    document.getElementById('btn-export').addEventListener('click', exportImage)
+    function exportImage() {
+      const image = canvas.toDataURL("image/png")
+      var oA = document.createElement("a")
+      oA.download = "马赛克结果.png"
+      oA.href = image
+      document.body.appendChild(oA)
+      oA.click()
+      oA.remove() // 下载之后把创建的元素删除
+    }
+
+  </script>
+</body>
+
+</html>
