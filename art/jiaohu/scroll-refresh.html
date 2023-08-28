@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>下拉刷新</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    .refresh-text {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      z-index: -1;
+      padding: 10px 0;
+    }
+
+    .main-content {
+      overflow: hidden;
+      position: relative;
+      background: yellow;
+    }
+
+    .main-content p {
+      padding: 50px 20px;
+      margin: 20px;
+      background: #ff9900;
+    }
+  </style>
+</head>
+
+<body>
+  <p class="refresh-text"></p>
+  <div class="main-content">
+    <p>text1</p>
+    <p>text1</p>
+    <p>text1</p>
+    <p>text1</p>
+    <p>text1</p>
+    <p>text1</p>
+    <p>text1</p>
+  </div>
+</body>
+
+<script>
+  var _mainContent = document.querySelector('.main-content'),
+    refreshText = document.querySelector('.refresh-text'),
+    startPostion = 0, // 记录触摸开始位置
+    scrollHeight = 0 // 记录触摸下拉的高度
+
+  _mainContent.addEventListener('touchstart', function (e) {
+    startPostion = e.touches[0].pageY
+    _mainContent.style.transition = 'transform 0s'
+  }, false)
+
+  _mainContent.addEventListener('touchmove', function (e) {
+    scrollHeight = e.touches[0].pageY - startPostion
+    _mainContent.style.transition = 'transform 0s'
+    if (scrollHeight > 0 && scrollHeight < 60) {
+      refreshText.innerText = '下拉刷新'
+      _mainContent.style.transform = 'translateY(' + scrollHeight + 'px)'
+      if (scrollHeight > 55) {
+        refreshText.innerText = '释放刷新'
+      }
+    }
+  }, false)
+
+  _mainContent.addEventListener('touchend', function (e) {
+    refreshText.innerText = '更新中'
+    _mainContent.style.transform = 'translateY(0px)'
+    console.log('发送网络请求')
+  }, false)
+
+</script>
+
+</html>
