@@ -6,15 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>我的小猫咪</title>
   <style>
+    body {
+      background: #336699;
+    }
+
     .container {
       display: flex;
-      padding: 20px;
-      overflow: auto;
     }
 
     .a4 {
       padding: 30px;
-      background: #336699;
       margin: auto;
       width: 485px;
     }
@@ -64,6 +65,8 @@
     }
 
     .round {
+      width: 70px;
+      height: 70px;
       border-radius: 50%;
       overflow: hidden;
     }
@@ -76,6 +79,31 @@
       font-size: 24px;
       color: #eee;
       margin-top: 8px;
+    }
+
+    @media (max-width:600px) {
+      body {
+        background: goldenrod;
+        padding: 0;
+        margin: 0;
+      }
+
+      .a4 {
+        padding: 10px;
+        margin: auto;
+        width: 100%;
+      }
+
+      .table {
+        width: 100%;
+      }
+
+      .table td {
+        padding: 10px;
+        width: 80px;
+        height: 80px;
+        border: 1px solid #eee;
+      }
     }
   </style>
 </head>
@@ -90,9 +118,9 @@
             <div class="sub-title">我是可爱的小三百</div>
           </td>
           <td>
-            <div class="img-baba round">
+            <div class="img-baba">
               <img src="https://enobj-cdn-1252108641.cos.ap-nanjing.myqcloud.com/300/%E5%A4%B4%E5%83%8F.jpg" alt=""
-                class="img">
+                class="img round">
             </div>
           </td>
         </tr>
@@ -115,22 +143,22 @@
         </tr>
         <tr>
           <td>
-            <div>自助餐模式™</div>
+            <div>自助餐</div>
             <div class="attr-name">猫粮</div>
           </td>
           <td>
-            <div>不限量供应™</div>
+            <div>不限量</div>
             <div class="attr-name">猫砂</div>
           </td>
         </tr>
         <tr>
           <td>
-            <div>巧克力等...</div>
-            <div class="attr-name">食物禁忌</div>
+            <div>每月</div>
+            <div class="attr-name">除虫</div>
           </td>
           <td>
-            <div>每周</div>
-            <div class="attr-name">除耳螨</div>
+            <div>巧克力等</div>
+            <div class="attr-name">食物禁忌</div>
           </td>
         </tr>
         <tr>
@@ -139,8 +167,8 @@
             <div class="attr-name">剪指甲</div>
           </td>
           <td>
-            <div>每月/每3月</div>
-            <div class="attr-name">除虫</div>
+            <div>每周</div>
+            <div class="attr-name">除耳螨</div>
           </td>
           <td colspan="2" rowspan="2" class="story bg-cover">
             我和爸爸妈妈相识于南刘庄，当时天气特别冷，我还得了重感冒，可怜兮兮的。我在一个月前被一个老奶奶的儿子的朋友作为礼物赠与，但是老奶奶不想要我了，把我放在小卖部门口售卖，这时候爸爸买菜路过，向我投来一束目光，我努力抓住他，喵了一声...
@@ -152,7 +180,7 @@
             <div class="attr-name">疫苗</div>
           </td>
           <td>
-            <div>2024/1/06</div>
+            <div>2024/1/6</div>
             <div class="attr-name">绝育</div>
           </td>
         </tr>
