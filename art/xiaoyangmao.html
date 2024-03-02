@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>小羊毛</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.2/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.10/dayjs.min.js"></script>
+    <style>
+      body {
+        background: #f6f6f6;
+      }
+      .yangmao {
+        display: block;
+        padding: 10px;
+        margin-bottom: 10px;
+        background: #fff;
+      }
+      .yangmao-title {
+        font-size: 18px;
+        font-weight: 700;
+      }
+      .yangmao-images {
+        display: flex;
+        gap: 20px;
+        overflow: auto;
+        margin-top: 10px;
+      }
+      .yangmao-image {
+        width: 200px;
+        display: block;
+        object-fit: cover;
+      }
+      .yangmao-time {
+        font-size: 14px;
+        color: gray;
+        margin-top: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>小羊毛</h1>
+    <div class="yangmao-list"></div>
+    <script>
+      axios
+        .post(
+          "https://service-nq33dn0l-1252108641.sh.apigw.tencentcs.com/release/xhs-loader",
+          {
+            action: "loadHaoyangmao",
+          }
+        )
+        .then((res) => {
+          const yangmaos = res.data.data.notes;
+          console.log("羊毛列表：", yangmaos);
+          const list = document.getElementsByClassName("yangmao-list")[0];
+          yangmaos.forEach((yangmao) => {
+            const yangmaoEle = document.createElement("div");
+            yangmaoEle.className = "yangmao";
+            // 标题
+            const title = document.createElement("a");
+            title.textContent = yangmao.title;
+            title.className = "yangmao-title";
+            title.href = `https://www.xiaohongshu.com/discovery/item/${yangmao.id}`;
+            title.target = "_blank";
+            yangmaoEle.append(title);
+            // 发布时间
+            const time = document.createElement("div");
+            time.textContent = dayjs(yangmao.create_time).format(
+              "YYYY MM-DD HH:mm:ss"
+            );
+            time.className = "yangmao-time";
+            yangmaoEle.append(time);
+            // 图片
+            const images = document.createElement("div");
+            images.classList = "yangmao-images";
+            yangmao.images_list.forEach((imageItem) => {
+              const image = document.createElement("img");
+              image.classList = "yangmao-image";
+              image.src = imageItem.src || imageItem.url_size_large;
+              images.append(image);
+            });
+            yangmaoEle.append(images);
+            list.append(yangmaoEle);
+          });
+        });
+    </script>
+  </body>
+</html>
