@@ -1,4 +1,4 @@
-/* v0.0.1 */
+/* v0.0.2 */
 /* 弹性盒 */
 .flex-between {
   display: flex;
@@ -40,6 +40,14 @@
 
 .flex-wrap {
   flex-wrap: wrap;
+}
+
+.flex-none {
+  flex: none;
+}
+
+.flex-auto {
+  flex: auto;
 }
 
 /* 内容盒 */
@@ -119,7 +127,7 @@
   padding: 16px;
 }
 
-.p-4{
+.p-4 {
   padding: 30px;
 }
 
@@ -171,7 +179,7 @@
   font-weight: 700;
 }
 
-.tag{
+.tag {
   background: gray;
   color: #fff;
   border-radius: 5px;
@@ -179,6 +187,6 @@
   font-size: 12px;
 }
 
-.hover-class{
+.hover-class {
   background: #eee;
 }
